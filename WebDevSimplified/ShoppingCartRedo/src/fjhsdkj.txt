@@ -1,0 +1,19 @@
+The above error occurred in the <Routes> component:
+
+Routes@http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=e69157ba:3771:7
+App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries. react-dom.development.js:18687:14
+
+
+Uncaught Error: useRoutes() may be used only in the context of a <Router> component.
+    invariant history.ts:494
+    useRoutesImpl hooks.tsx:352
+    useRoutes hooks.tsx:343
+    Routes components.tsx:463
+    React 9
+    workLoop scheduler.development.js:266
+    flushWork scheduler.development.js:239
+    performWorkUntilDeadline scheduler.development.js:533
+history.ts:494:10
