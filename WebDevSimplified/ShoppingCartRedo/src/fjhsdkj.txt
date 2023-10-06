@@ -1,19 +1,171 @@
-The above error occurred in the <Routes> component:
+ShoppingCartContext.tsx: 
 
-Routes@http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=e69157ba:3771:7
-App
+import { createContext, useContext, ReactNode, useState } from 'react';
 
-Consider adding an error boundary to your tree to customize error handling behavior.
-Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries. react-dom.development.js:18687:14
+type ShoppingCartProviderProps = {
+children: ReactNode 
+}
+
+type CartItem = {
+id: number
+quantity: number
+}
+
+type ShoppingCartContext = {
+openCart: () => void;
+closeCart: () => void;
+getItemQuantity: (id:number) => number;
+increaseCartQuantity: (id:number) => void;
+decreaseCartQuantity: (id:number) => void;
+removeFromCart: (id:number) => void;
+cartQuantity: number;
+cartItems: CartItem[];
+}
+
+const ShoppingCartContext = createContext({} as ShoppingCartContext)
+
+export function useShoppingCart() {
+return useContext(ShoppingCartContext)
+}
+
+export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
+//place to store cart information
+const [ cartItems, setCartItems ] = useState<CartItem[]>([])
+
+//create a state variable for open / close cart 
+const [ isOpen, setIsOpen ] = useState(false)
+
+const cartQuantity = cartItems.reduce((quantity, item) => item.quantity + quantity, 0 ) //counting all the item quantitiies in our cart
+
+const openCart = () => setIsOpen(true)
+const closeCart = () => setIsOpen(false)
+
+function getItemQuantity(id:number) {
+    return cartItems.find(item => item.id === id)?.quantity || 0
+}
+
+ // ... (other code)
+
+return (
+<ShoppingCartContext.Provider 
+value={{ getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart, cartItems, cartQuantity, openCart, closeCart }}>
+    {children}
+</ShoppingCartContext.Provider>
+)}
 
 
-Uncaught Error: useRoutes() may be used only in the context of a <Router> component.
-    invariant history.ts:494
-    useRoutesImpl hooks.tsx:352
-    useRoutes hooks.tsx:343
-    Routes components.tsx:463
-    React 9
-    workLoop scheduler.development.js:266
-    flushWork scheduler.development.js:239
-    performWorkUntilDeadline scheduler.development.js:533
-history.ts:494:10
+-----------
+Navbar.tsx: 
+
+import * as React from "react";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+import { useShoppingCart } from "../context/ShoppingCartContext";
+
+const pages = ["home", "about", "store"];
+
+
+
+export function ResponsiveAppBar() {
+const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+
+const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+setAnchorElNav(event.currentTarget);};
+
+const handleCloseNavMenu = () => {
+setAnchorElNav(null)};
+
+// unsure whether to use 
+// const { openCart, cartQuantity } = useShoppingCart()
+
+return (
+<AppBar position="static">
+<Container maxWidth="xl">
+<Toolbar disableGutters>
+<AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+<Typography
+variant="h6"
+noWrap
+component="a"
+href="#navbar"
+sx={{
+    mr: 1,
+    display: { xs: "none", md: "flex" },
+    fontWeight: 700,
+    letterSpacing: ".3rem",
+    color: "inherit",
+    textDecoration: "none",
+}}
+>
+Project!
+</Typography>
+
+<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+// ... (other code)
+
+<Menu
+    id="menu-appbar"
+    anchorEl={anchorElNav}
+    anchorOrigin={{
+    vertical: "bottom",
+    horizontal: "left",
+    }}
+    keepMounted
+    transformOrigin={{
+    vertical: "top",
+    horizontal: "left",
+    }}
+    open={Boolean(anchorElNav)}
+    onClose={handleCloseNavMenu}
+    sx={{
+    display: { xs: "block", md: "none" },
+    }}
+>
+    {pages.map((page) => (
+    <MenuItem key={page} onClick={handleCloseNavMenu}>
+        <Typography textAlign="center">{page}</Typography>
+    </MenuItem>
+    ))}
+</Menu>
+</Box>
+
+<AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+<Typography
+variant="h5"
+noWrap
+component="a"
+href="#smaller-screen-nav"
+sx={{
+    mr: 2,
+    display: { xs: "flex", md: "none" },
+    flexGrow: 1,
+    fontWeight: 700,
+    letterSpacing: ".3rem",
+    color: "inherit",
+    textDecoration: "none",
+}}
+>
+Project
+</Typography>
+
+// ... (other code)
+
+<Box sx={{ flexGrow: 0 }}>
+<div>
+    <IconButton 
+    aria-label="shopping cart" sx={{ color: "#fafafa" }}>
+    <Badge color="error" badgeContent={1}>
+        <Tooltip title="Your cart">
+        <ShoppingCartIcon />
+        </Tooltip>
+    </Badge>
+    </IconButton>
+
+</div>
+</Box>
+
+</Toolbar>
+</Container>
+</AppBar>
+);
+}

@@ -1,5 +1,5 @@
 //maybe the most confusing component but the rendering should be easier
-import { Card, CardMedia, CardContent, Typography, CardActions, Box, Button } from "@mui/material";
+import { Card, CardMedia, CardContent, Typography, CardActions, Button } from "@mui/material";
 import formatCurrency from "../utilities/formatCurrency";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 
