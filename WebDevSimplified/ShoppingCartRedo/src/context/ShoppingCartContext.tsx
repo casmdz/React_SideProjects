@@ -2,6 +2,7 @@
 
 import { createContext, useContext, ReactNode, useState } from 'react';
 import { ShoppingCartDrawer } from '../components/ShoppingCartDrawer';
+import {useLocalStorage} from '../hooks/useLocalStorage';
 
 type ShoppingCartProviderProps = {
     children: ReactNode 
@@ -30,9 +31,14 @@ export function useShoppingCart() {
 }
 
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
+    
     //place to store cart information
-    //custom hook for local state storage 
-    const [ cartItems, setCartItems ] = useState<CartItem[]>([])
+    //custom hook for local state storage instead of useState
+    const [ cartItems, setCartItems ] = useLocalStorage<CartItem[]>(
+        "shopping-cart",
+        [] ) //we need to make it work with  custom generic types as well as props
+
+
 
     //create a state variable for open / close cart 
     const [ isOpen, setIsOpen ] = useState(false)

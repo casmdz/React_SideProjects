@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import { Home } from './pages/Home';
 import { About } from './pages/About';
 import { Store } from './pages/Store';
+import { Landing } from './pages/Landing';
 import { ResponsiveAppBar } from './components/Navbar'
 import { ShoppingCartProvider } from './context/ShoppingCartContext';
 
@@ -17,7 +18,8 @@ function App() {
   <ResponsiveAppBar />
       <Container>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path='/' element={<Landing />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/store" element={<Store />} />
           <Route path="/about" element={<About />} />
         </Routes>

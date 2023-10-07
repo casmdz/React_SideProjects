@@ -8,25 +8,18 @@ export function Store() {
 
   return (
     <>
-    <h1 className='mt-5'>Store</h1>
-    <br />
-
-    <Box 
-    // sx={{ flexGrow: 1, display: 'flex' }}
-    mx={1.5} >
-      <Grid container spacing={3} sx={{ justifyContent: 'center' }}>
+    <Box mx={1.5} p={5}>
+      <Grid container spacing={3} mb={4} sx={{ justifyContent: 'center' }}>
         {storeItems.map(item => (
-          // <div key={item.id}>{JSON.stringify(item)}</div>
           <Grid item xs={12} sm={4} lg={5}
-          // sx={{wordWrap:'break-word'}}
           >
             <StoreItem {...item} />
           </Grid>
 
         ))}
       </Grid>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere, aperiam iste. Sunt ipsa, ad totam laudantium enim dolore debitis! Omnis quis, pariatur aspernatur vel error accusantium iure quasi ea minima dignissimos dolore voluptate, mollitia hic doloremque molestias ab incidunt aliquam ratione reprehenderit libero eum unde sapiente. Totam fuga autem accusamus?</p>
     </Box>
-
 
     </>
 
