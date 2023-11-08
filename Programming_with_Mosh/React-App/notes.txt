@@ -1,0 +1,106 @@
+54
+passing functions via props 
+
+in a real world application, something should happen after an ittem is selected
+
+but we need to make it reusable, so it shouldnt be hardcoded in ListGroup.tsx componenet
+
+Notify the consumer (the parent) (APP.tsx) of Listgroup componenet that the item is selected 
+
+
+We've been using Props to pass data to LG. We can make a 3d property a function
+
+
+PROPS =
+input passed to a component 
+similar to function args 
+treat it as IMMUTABLE (unchangeable/ read only) 
+
+
+
+STATE = 
+data managed by the component
+can change over time 
+similar to local variables inside a function 
+
+Both cause a re-render 
+
+
+
+PASSING CHILDREN 
+like how we pass a list group in the div in app 
+
+-create Alert.tsx 
+
+-rafce 
+rafce = react arrow function export component 
+
+
+    <br />
+
+    <Message />
+    <ListGroup items={items} heading={headerText} onSelectItem={handleSelectItem}/> 
+
+
+
+BUILDING A BUTTON COMPONENT 
+
+https://mui.com/material-ui/react-button/#handling-clicks
+
+<Button
+  onClick={() => {
+    alert('clicked');
+  }}
+>
+  Click me
+</Button>
+
+
+
+Customization
+Here are some examples of customizing the component. You can learn more about this in the overrides documentation page. 
+https://mui.com/material-ui/react-button/#customization
+
+
+Prompt: Create a React component that renders a Material-UI button. When the button is clicked, it should change its appearance (e.g., change the background color) or display a message on the screen. You can also include a counter to track how many times the button has been clicked.
+
+Binding element 'onPress' implicitly has an 'any' type.
+
+
+
+
+trying out dialogue boxes instead of a modal 
+
+https://mui.com/material-ui/react-dialog/#customization
+
+
+
+https://mui.com/system/getting-started/the-sx-prop/
+
+
+
+
+using customization dialog 
+just like our phonebook modal 
+
+we're programming the content 
+and if open: return that content 
+
+
+<p>The bumblebee bat is the world's smallest mammal</p>
+<p>Beavers have orange teeth, as they contain a lot of iron. The mineral makes the teeth particularly resistant to external forces.</p>
+<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, dignissimos natus illo omnis doloremque impedit qui, modi aliquam quas reiciendis fugit.</p>
+
+
+
+<Typography paragraph={true} sx={{ whiteSpace: 'pre-line'}}>
+The bumblebee bat is the world's smallest mammal.
+
+Beavers have orange teeth, as they contain a lot of iron. The mineral makes the teeth particularly resistant to external forces.
+
+Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, dignissimos natus illo omnis doloremque impedit qui, modi aliquam quas reiciendis fugit.
+</Typography>
+
+a
+
+    // onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void; // ngl dont know what this is for but i copied and pasted it from the phonebook
